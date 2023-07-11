@@ -8,11 +8,18 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import NavBar from '../components/NavBar';
 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { useState } from 'react';
+
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 export default function InfoAsker() {
+  const [faculty, setFaculty] = useState("")
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -24,7 +31,7 @@ export default function InfoAsker() {
 
   return (
     <>
-    <NavBar/>
+      <NavBar />
       <ThemeProvider theme={defaultTheme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -49,42 +56,45 @@ export default function InfoAsker() {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
+                id="index"
                 label="Index Number"
-                name="email"
-                autoComplete="email"
+                name="index"
+                autoComplete="index"
                 autoFocus
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                name="password"
+                name="firstName"
                 label="First Name"
-                type="password"
-                id="password"
-                autoComplete="current-password"
+                id="firstName"
+                autoComplete="first name"
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                name="password"
+                name="lastName"
                 label="Last Name"
-                type="password"
-                id="password"
-                autoComplete="current-password"
+                id="lastName"
+                autoComplete="last name"
               />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Faculty"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
+              <FormControl fullWidth>
+                <InputLabel id="faculty-select-label">Faculty</InputLabel>
+                <Select
+                  labelId="faculty-select-label"
+                  id="faculty-select"
+                  value={faculty}
+                  onChange={(e)=>setFaculty(e.target.value)}
+                  label="Faculty"
+                >
+                  <MenuItem value="Engineering Faculty">Engineering Faculty</MenuItem>
+                  <MenuItem value="Architecture Faculty">Architecture Faculty</MenuItem>
+                  <MenuItem value="Business Faculty">Business Faculty</MenuItem>
+                  <MenuItem value="Medical Faculty">Medical Faculty</MenuItem>
+                </Select>
+              </FormControl>
               <Button
                 type="submit"
                 fullWidth
