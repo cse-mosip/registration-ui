@@ -1,18 +1,40 @@
 import {
   Button,
-  Card,
   Checkbox,
   FormControlLabel,
+  FormHelperText,
   Grid,
   TextField,
   ThemeProvider,
-  Typography,
   createTheme,
 } from '@mui/material';
-import React from 'react';
+import { useState } from 'react';
 import UoMLogo from '../assets/image/uom_logo.png';
 
 export default function LogIn() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
+
+  const handleSubmit = () => {
+    const newErrors = {};
+    if (username.length === 0) {
+      newErrors.username = 'Username must not be empty';
+    }
+
+    if (password.length === 0) {
+      newErrors.password = 'Passowrd must not be empty';
+    }
+    if (newErrors.username || newErrors.password) {
+      setErrors(newErrors);
+      return;
+    }
+
+    //todo: implement backend integration
+    else {
+      alert('log in');
+    }
+  };
   const theme = createTheme({
     palette: {
       text: {
@@ -72,6 +94,7 @@ export default function LogIn() {
           <Grid
             item
             xs={12}
+            mb={2}
             sx={{
               textAlign: 'center',
             }}
@@ -80,7 +103,7 @@ export default function LogIn() {
           </Grid>
           <Grid
             item
-            minWidth="400px"
+            minWidth={{ xs: '0px', md: '400px' }}
             sx={{
               borderRadius: '5px',
               padding: '50px',
@@ -91,18 +114,30 @@ export default function LogIn() {
             <Grid item xs={12} mb={4}>
               <TextField
                 fullWidth
+                value={username}
                 id="username"
                 label="Username"
                 variant="outlined"
+                onChange={(e) => setUsername(e.target.value)}
+                error={errors.username !== undefined}
               />
+              {errors.username && (
+                <FormHelperText error>{errors.username}</FormHelperText>
+              )}
             </Grid>
             <Grid item xs={12} mb={2}>
               <TextField
                 fullWidth
+                value={password}
                 id="passowrd"
                 label="Password"
                 variant="outlined"
+                onChange={(e) => setPassword(e.target.value)}
+                error={errors.password !== undefined}
               />
+              {errors.password && (
+                <FormHelperText error>{errors.password}</FormHelperText>
+              )}
             </Grid>
             <Grid item mb={1}>
               <FormControlLabel control={<Checkbox />} label="Remember Me" />
@@ -112,7 +147,11 @@ export default function LogIn() {
               xs={12}
               sx={{ display: 'flex', justifyContent: 'center' }}
             >
-              <Button sx={{ minWidth: '200px' }} variant="contained">
+              <Button
+                onClick={handleSubmit}
+                sx={{ minWidth: '200px' }}
+                variant="contained"
+              >
                 Login
               </Button>
             </Grid>
