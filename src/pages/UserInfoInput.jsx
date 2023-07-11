@@ -80,7 +80,7 @@ export default function InfoAsker() {
                 id="lastName"
                 autoComplete="last name"
               />
-              <FormControl fullWidth>
+              <FormControl fullWidth margin='normal'>
                 <InputLabel id="faculty-select-label">Faculty</InputLabel>
                 <Select
                   labelId="faculty-select-label"
