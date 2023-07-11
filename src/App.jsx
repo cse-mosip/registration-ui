@@ -1,14 +1,13 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./Theme";
+import ViewRoutes from "./routes/ViewRoutes";
 
 function App() {
 
   return (
-    <>
-      <h1>Home</h1>
-    </>
+    <ThemeProvider theme={theme}>    
+        <ViewRoutes />
+    </ThemeProvider>
   )
 }
 
