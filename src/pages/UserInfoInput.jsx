@@ -1,25 +1,25 @@
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { useState } from "react";
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { useState } from 'react';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 export default function InfoAsker() {
-  const [faculty, setFaculty] = useState("");
+  const [faculty, setFaculty] = useState('');
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+      email: data.get('email'),
+      password: data.get('password'),
     });
   };
 
@@ -30,9 +30,9 @@ export default function InfoAsker() {
         <Box
           sx={{
             marginTop: 6,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
           <Typography component="h1" variant="h5">
@@ -44,9 +44,10 @@ export default function InfoAsker() {
             noValidate
             sx={{
               mt: 1,
-              border: "1px solid blue",
-              borderRadius: "4px",
-              padding: "16px",
+              border: '1px solid blue',
+              borderRadius: '4px',
+              padding: '16px',
+              backgroundColor: '#FFFFFF',
             }}
           >
             <TextField
