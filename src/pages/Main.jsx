@@ -2,7 +2,7 @@ import { CssBaseline } from "@mui/material";
 import { Box } from "@mui/system";
 import NavBar from "../components/NavBar";
 import { Outlet } from "react-router";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 import { styled } from "@mui/material/styles";
 
 const Main = styled("main")(({ theme }) => ({

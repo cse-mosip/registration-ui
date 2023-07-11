@@ -1,10 +1,13 @@
 import { Box, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
+import { APP, ASKINFO } from "../constants/constants";
 
 const items = [
   {
     image:
       "https://icons.veryicon.com/png/o/miscellaneous/management-console-icon-update-0318/add-user-25.png",
     title: "Add Student",
+    path: ASKINFO,
   },
   {
     image: "https://cdn-icons-png.flaticon.com/512/33/33308.png",
@@ -49,32 +52,37 @@ function Home() {
         }}
       >
         {items.map((item) => (
-          <Box
+          <Link
             key={item.title}
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              padding: 3,
-              border: "3px solid black",
-              borderRadius: "5px",
-              alignItems: "center",
-              justifyContent: "center",
-              boxShadow: 5,
-              width: "200px",
-              height: "200px",
-              gap: "15px",
-            }}
+            to={`/${APP}/${item.path}`}
+            style={{ textDecoration: "none" }}
           >
-            <img
-              src={item.image}
-              alt={item.title}
-              loading="lazy"
-              style={{ width: "50px", height: "50px" }}
-            />
-            <Typography align="center" variant="h6">
-              {item.title}
-            </Typography>
-          </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                padding: 3,
+                border: "3px solid black",
+                borderRadius: "5px",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: 5,
+                width: "200px",
+                height: "200px",
+                gap: "15px",
+              }}
+            >
+              <img
+                src={item.image}
+                alt={item.title}
+                loading="lazy"
+                style={{ width: "50px", height: "50px" }}
+              />
+              <Typography align="center" variant="h6">
+                {item.title}
+              </Typography>
+            </Box>
+          </Link>
         ))}
       </Box>
     </Box>
