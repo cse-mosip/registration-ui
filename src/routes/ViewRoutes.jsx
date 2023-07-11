@@ -8,10 +8,10 @@ import LogIn from '../pages/Login';
 const ViewRoutes = () => {
   return (
     <Routes>
+      <Route exact path={LOGIN} element={<LogIn />} />
       <Route exact path={APP} element={<MainComponent />}>
         <Route index element={<Home />} />
         <Route exact path={HOME} element={<Home />} />
-        <Route exact path={LOGIN} element={<LogIn />} />
         <Route exact path={ASKINFO} element={<InfoAsker />} />
       </Route>
     </Routes>
