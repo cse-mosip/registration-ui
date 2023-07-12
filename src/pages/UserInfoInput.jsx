@@ -137,7 +137,7 @@ export default function InfoAsker() {
                 <FormHelperText error>{errors.faculty}</FormHelperText>
               )}
             </FormControl>
-            <Button
+            {/* <Button
               sx={{ mt: 2 }}
               fullWidth
               variant="outlined"
@@ -158,7 +158,7 @@ export default function InfoAsker() {
               to={`/${APP}/${FACESCAN}`}
             >
               Scan Face
-            </Button>
+            </Button> */}
             <Button
               type="submit"
               fullWidth
