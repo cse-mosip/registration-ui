@@ -20,7 +20,6 @@ export default function FaceScan() {
   return (
     <>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Typography
           variant="h5"
           align="center"

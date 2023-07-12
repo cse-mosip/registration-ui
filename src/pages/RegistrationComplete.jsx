@@ -14,10 +14,8 @@ const defaultTheme = createTheme();
 function RegistrationComplete() {
   return (
     <>
-      <NavBar />
       <ThemeProvider theme={defaultTheme}>
         <Container component="main" maxWidth="xs">
-          <CssBaseline />
           <Grid
             container
             spacing={0}

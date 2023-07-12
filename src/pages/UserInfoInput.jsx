@@ -54,7 +54,6 @@ export default function InfoAsker() {
   return (
     <>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 6,
@@ -138,6 +137,28 @@ export default function InfoAsker() {
                 <FormHelperText error>{errors.faculty}</FormHelperText>
               )}
             </FormControl>
+            <Button
+              sx={{ mt: 2 }}
+              fullWidth
+              variant="outlined"
+              color="secondary"
+              startIcon={<FingerprintIcon />}
+              component={Link}
+              to={`/${APP}/${FINGERPRINTLOAD}`}
+            >
+              Scan Fingerprint
+            </Button>
+            <Button
+              sx={{ mt: 2 }}
+              fullWidth
+              variant="outlined"
+              color="secondary"
+              startIcon={<SensorOccupiedIcon />}
+              component={Link}
+              to={`/${APP}/${FACESCAN}`}
+            >
+              Scan Face
+            </Button>
             <Button
               type="submit"
               fullWidth
