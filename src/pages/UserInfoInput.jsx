@@ -11,7 +11,7 @@ import { useState } from "react";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import SensorOccupiedIcon from "@mui/icons-material/SensorOccupied";
 import { Link } from "react-router-dom";
-import { APP, FACEIDLOAD } from "../constants/constants";
+import { APP, FACESCAN } from "../constants/constants";
 import { FINGERPRINTLOAD } from "../constants/constants";
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -118,7 +118,7 @@ export default function InfoAsker() {
               color="secondary"
               startIcon={<SensorOccupiedIcon />}
               component={Link}
-              to={`/${APP}/${FACEIDLOAD}`}
+              to={`/${APP}/${FACESCAN}`}
             >
               Scan Face
             </Button>
