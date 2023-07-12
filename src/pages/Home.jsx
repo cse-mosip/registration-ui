@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import { APP, ASKINFO, VIEW } from "../constants/constants";
+import { APP, ASKINFO } from "../constants/constants";
 
 const items = [
   {
@@ -12,7 +12,6 @@ const items = [
   {
     image: "https://cdn-icons-png.flaticon.com/512/33/33308.png",
     title: "View Registered Students",
-    path: VIEW,
   },
   {
     image: "https://cdn-icons-png.flaticon.com/512/2522/2522138.png",
