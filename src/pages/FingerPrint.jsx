@@ -21,7 +21,18 @@ export default function FingerPrint() {
   return (
     <>
       <Container component="main" maxWidth="xs">
-        {/* <CssBaseline /> */}
+        <CssBaseline />
+        <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          sx={{
+            fontWeight: "bold",
+            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.4)",
+          }}
+        >
+          FingerPrint Scan
+        </Typography>
         <Image src="../src/assets/image/fingerprint.jpg" height="60vh"></Image>
         <br />
         <ProgressBar progress={progress} setProgress={setProgress} />

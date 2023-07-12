@@ -23,7 +23,7 @@ export default function FaceScan() {
         >
           Face Scan
         </Typography>
-        <Image src="../src/assets/image/fingerprint.jpg" height="60vh"></Image>
+        <Image src="../src/assets/image/face_scanner.svg" height="60vh"></Image>
         <br />
         <ProgressBar />
       </Container>
