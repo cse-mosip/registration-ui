@@ -19,6 +19,7 @@ export default function LogIn() {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
+    setErrors({});
     const newErrors = {};
     if (username.length === 0) {
       newErrors.username = 'Username must not be empty';
@@ -34,7 +35,13 @@ export default function LogIn() {
 
     //todo: implement backend integration
     else {
-      navigate('/app');
+      if (!username.includes('@cse.mrt.ac.lk')) {
+        newErrors.username = 'Incorrect username or password';
+        newErrors.password = 'Incorrect username or password';
+        setErrors(newErrors);
+        return;
+      }
+      navigate(`/${APP}`);
     }
   };
   const theme = createTheme({

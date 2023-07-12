@@ -6,6 +6,7 @@ import {
   LOGIN,
   FINGERPRINTLOAD,
   FACESCAN,
+  REG_COMPLETE,
 } from '../constants/constants';
 import Home from '../pages/Home';
 import InfoAsker from '../pages/UserInfoInput';
