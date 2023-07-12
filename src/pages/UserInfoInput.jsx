@@ -1,38 +1,41 @@
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import { useState } from 'react';
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { useState } from "react";
+import FingerprintIcon from "@mui/icons-material/Fingerprint";
+import SensorOccupiedIcon from "@mui/icons-material/SensorOccupied";
+import { Link } from "react-router-dom";
+import { APP, FACEIDLOAD } from "../constants/constants";
+import { FINGERPRINTLOAD } from "../constants/constants";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 export default function InfoAsker() {
-  const [faculty, setFaculty] = useState('');
+  const [faculty, setFaculty] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+      email: data.get("email"),
+      password: data.get("password"),
     });
   };
 
   return (
     <>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 6,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
           <Typography component="h1" variant="h5">
@@ -44,10 +47,10 @@ export default function InfoAsker() {
             noValidate
             sx={{
               mt: 1,
-              border: '1px solid blue',
-              borderRadius: '4px',
-              padding: '16px',
-              backgroundColor: '#FFFFFF',
+              border: "1px solid blue",
+              borderRadius: "4px",
+              padding: "16px",
+              backgroundColor: "#FFFFFF",
             }}
           >
             <TextField
@@ -97,6 +100,28 @@ export default function InfoAsker() {
                 <MenuItem value="Medical Faculty">Medical Faculty</MenuItem>
               </Select>
             </FormControl>
+            <Button
+              sx={{ mt: 2 }}
+              fullWidth
+              variant="outlined"
+              color="secondary"
+              startIcon={<FingerprintIcon />}
+              component={Link}
+              to={`/${APP}/${FINGERPRINTLOAD}`}
+            >
+              Scan Fingerprint
+            </Button>
+            <Button
+              sx={{ mt: 2 }}
+              fullWidth
+              variant="outlined"
+              color="secondary"
+              startIcon={<SensorOccupiedIcon />}
+              component={Link}
+              to={`/${APP}/${FACEIDLOAD}`}
+            >
+              Scan Face
+            </Button>
             <Button
               type="submit"
               fullWidth
