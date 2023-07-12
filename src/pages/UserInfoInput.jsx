@@ -9,51 +9,24 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useState } from 'react';
-import { FormHelperText } from '@mui/material';
-import { APP, FINGERPRINTLOAD } from '../constants/constants';
-import { useNavigate } from 'react-router-dom';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 export default function InfoAsker() {
   const [faculty, setFaculty] = useState('');
-  const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    setErrors({});
-    const newErrors = {};
-    let isError = false;
-    if (!data.get('index')) {
-      newErrors.index = 'index no is required';
-      isError = true;
-    }
-    if (!data.get('firstName')) {
-      newErrors.firstName = 'first name is required';
-      isError = true;
-    }
-    if (!data.get('lastName')) {
-      newErrors.lastName = 'last name is required';
-      isError = true;
-    }
-    if (!faculty) {
-      newErrors.faculty = 'faculty is required';
-      isError = true;
-    }
-
-    if (isError) {
-      setErrors(newErrors);
-      return;
-    }
-
-    navigate(`/${APP}/${FINGERPRINTLOAD}`);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
   };
 
   return (
     <>
       <Container component="main" maxWidth="xs">
+        <CssBaseline />
         <Box
           sx={{
             marginTop: 6,
@@ -87,9 +60,6 @@ export default function InfoAsker() {
               autoComplete="index"
               autoFocus
             />
-            {errors.index && (
-              <FormHelperText error>{errors.index}</FormHelperText>
-            )}
             <TextField
               margin="normal"
               required
@@ -99,10 +69,6 @@ export default function InfoAsker() {
               id="firstName"
               autoComplete="first name"
             />
-
-            {errors.firstName && (
-              <FormHelperText error>{errors.firstName}</FormHelperText>
-            )}
             <TextField
               margin="normal"
               required
@@ -112,11 +78,8 @@ export default function InfoAsker() {
               id="lastName"
               autoComplete="last name"
             />
-            {errors.lastName && (
-              <FormHelperText error>{errors.lastName}</FormHelperText>
-            )}
             <FormControl fullWidth margin="normal">
-              <InputLabel id="faculty-select-label">Faculty *</InputLabel>
+              <InputLabel id="faculty-select-label">Faculty</InputLabel>
               <Select
                 labelId="faculty-select-label"
                 id="faculty-select"
@@ -133,39 +96,14 @@ export default function InfoAsker() {
                 <MenuItem value="Business Faculty">Business Faculty</MenuItem>
                 <MenuItem value="Medical Faculty">Medical Faculty</MenuItem>
               </Select>
-              {errors.faculty && (
-                <FormHelperText error>{errors.faculty}</FormHelperText>
-              )}
             </FormControl>
-            {/* <Button
-              sx={{ mt: 2 }}
-              fullWidth
-              variant="outlined"
-              color="secondary"
-              startIcon={<FingerprintIcon />}
-              component={Link}
-              to={`/${APP}/${FINGERPRINTLOAD}`}
-            >
-              Scan Fingerprint
-            </Button>
-            <Button
-              sx={{ mt: 2 }}
-              fullWidth
-              variant="outlined"
-              color="secondary"
-              startIcon={<SensorOccupiedIcon />}
-              component={Link}
-              to={`/${APP}/${FACESCAN}`}
-            >
-              Scan Face
-            </Button> */}
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Next
+              Add Student
             </Button>
           </Box>
         </Box>

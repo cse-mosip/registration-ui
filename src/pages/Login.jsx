@@ -11,7 +11,6 @@ import {
 import { useState } from 'react';
 import UoMLogo from '../assets/image/uom_logo.png';
 import { useNavigate } from 'react-router';
-import { APP } from '../constants/constants';
 
 export default function LogIn() {
   const [username, setUsername] = useState('');
@@ -20,7 +19,6 @@ export default function LogIn() {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    setErrors({});
     const newErrors = {};
     if (username.length === 0) {
       newErrors.username = 'Username must not be empty';
@@ -36,13 +34,7 @@ export default function LogIn() {
 
     //todo: implement backend integration
     else {
-      if (!username.includes('@cse.mrt.ac.lk')) {
-        newErrors.username = 'Incorrect username or password';
-        newErrors.password = 'Incorrect username or password';
-        setErrors(newErrors);
-        return;
-      }
-      navigate(`/${APP}`);
+      navigate('/app');
     }
   };
   const theme = createTheme({
