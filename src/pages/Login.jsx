@@ -11,6 +11,7 @@ import {
 import { useState } from 'react';
 import UoMLogo from '../assets/image/uom_logo.png';
 import { useNavigate } from 'react-router';
+import { APP } from '../constants/constants';
 
 export default function LogIn() {
   const [username, setUsername] = useState('');
