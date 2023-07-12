@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import {
   HOME,
-  ASKINFO,
+  ASKINFO, VIEW,
   APP,
   LOGIN,
   FINGERPRINTLOAD,
@@ -9,6 +9,7 @@ import {
   REG_COMPLETE,
 } from '../constants/constants';
 import Home from '../pages/Home';
+import View from '../pages/View';
 import InfoAsker from '../pages/UserInfoInput';
 import MainComponent from '../pages/Main';
 import LogIn from '../pages/Login';
@@ -23,6 +24,7 @@ const ViewRoutes = () => {
       <Route exact path={APP} element={<MainComponent />}>
         <Route index element={<Home />} />
         <Route exact path={HOME} element={<Home />} />
+        <Route exact path={VIEW} element={<View />} />
         <Route exact path={ASKINFO} element={<InfoAsker />} />
         <Route exact path={FINGERPRINTLOAD} element={<FingerPrint />} />
         <Route exact path={FACESCAN} element={<FaceScan />} />
