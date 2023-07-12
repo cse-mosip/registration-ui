@@ -5,4 +5,4 @@ export const APP = 'app';
 export const LOGIN = 'login';
 export const FINGERPRINTLOAD ='fingerprint'
 export const FACESCAN ='facescan'
-export const REG_COMPLETE = "/regsuccess";
+export const REG_COMPLETE = "regsuccess";
