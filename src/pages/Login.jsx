@@ -138,6 +138,7 @@ export default function LogIn() {
             <Grid item xs={12} mb={2}>
               <TextField
                 fullWidth
+                type="password"
                 value={password}
                 id="passowrd"
                 label="Password"
