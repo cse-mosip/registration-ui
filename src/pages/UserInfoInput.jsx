@@ -1,5 +1,4 @@
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -16,30 +15,36 @@ import { useNavigate } from 'react-router-dom';
 // TODO remove, this demo shouldn't need to reset the theme.
 
 export default function InfoAsker() {
-  const [faculty, setFaculty] = useState('');
+
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const [student, setStudent] = useState({index:'', email:'', firstName:'', lastName:'', faculty:'', fingerPrint:'', facePrint:''}); 
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("data", student)
     const data = new FormData(event.currentTarget);
     setErrors({});
     const newErrors = {};
     let isError = false;
     if (!data.get('index')) {
-      newErrors.index = 'index no is required';
+      newErrors.index = 'Index No is required!';
       isError = true;
     }
     if (!data.get('firstName')) {
-      newErrors.firstName = 'first name is required';
+      newErrors.firstName = 'First name is required!';
       isError = true;
     }
     if (!data.get('lastName')) {
-      newErrors.lastName = 'last name is required';
+      newErrors.lastName = 'Last name is required!';
       isError = true;
     }
-    if (!faculty) {
-      newErrors.faculty = 'faculty is required';
+    if (!data.get('email')) {
+      newErrors.email = 'Email is required!';
+      isError = true;
+    }
+    if (!student.faculty) {
+      newErrors.faculty = 'Faculty is required!';
       isError = true;
     }
 
@@ -48,8 +53,29 @@ export default function InfoAsker() {
       return;
     }
 
-    navigate(`/${APP}/${FINGERPRINTLOAD}`);
+    navigate(`/${APP}/${FINGERPRINTLOAD}`, {state: student});
   };
+
+  const handleChange = (event)=>{
+    const name = event.target.name;
+    const value = event.target.value;
+
+    switch (name){
+      case "index":
+        setStudent((cur)=> {return {...cur, index:value}});
+        break;
+      case "firstName":
+        setStudent((cur)=> {return {...cur, firstName:value}});
+        break;   
+      case "lastName":
+        setStudent((cur)=> {return {...cur, lastName:value}});
+        break;
+      case "email":
+        setStudent((cur)=> {return {...cur, email:value}});
+        break;  
+    }
+
+  }
 
   return (
     <>
@@ -86,9 +112,25 @@ export default function InfoAsker() {
               name="index"
               autoComplete="index"
               autoFocus
+              value = {student.index}
+              onChange={handleChange}
             />
             {errors.index && (
               <FormHelperText error>{errors.index}</FormHelperText>
+            )}
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="email"
+              label="Email"
+              id="email"
+              autoComplete="email"
+              value={student.email}
+              onChange={handleChange}
+            />
+            {errors.email && (
+              <FormHelperText error>{errors.email}</FormHelperText>
             )}
             <TextField
               margin="normal"
@@ -98,6 +140,8 @@ export default function InfoAsker() {
               label="First Name"
               id="firstName"
               autoComplete="first name"
+              value = {student.firstName}
+              onChange={handleChange}
             />
 
             {errors.firstName && (
@@ -111,32 +155,36 @@ export default function InfoAsker() {
               label="Last Name"
               id="lastName"
               autoComplete="last name"
+              value={student.lastName}
+              onChange={handleChange}
             />
             {errors.lastName && (
               <FormHelperText error>{errors.lastName}</FormHelperText>
             )}
             <FormControl fullWidth margin="normal">
-              <InputLabel id="faculty-select-label">Faculty *</InputLabel>
+              <InputLabel id="faculty-select-label" required>Faculty</InputLabel>
               <Select
                 labelId="faculty-select-label"
                 id="faculty-select"
-                value={faculty}
-                onChange={(e) => setFaculty(e.target.value)}
+                required
+                value={student.faculty}
+                onChange={(e) => setStudent((cur)=> {return {...cur, faculty: e.target.value}})}
                 label="Faculty"
               >
                 <MenuItem value="Engineering Faculty">
-                  Engineering Faculty
+                  Faculty of Engineering
                 </MenuItem>
                 <MenuItem value="Architecture Faculty">
-                  Architecture Faculty
+                  Faculty of Architecture
                 </MenuItem>
-                <MenuItem value="Business Faculty">Business Faculty</MenuItem>
-                <MenuItem value="Medical Faculty">Medical Faculty</MenuItem>
+                <MenuItem value="IT Faculty">Faculty of Information Technology</MenuItem>
+                <MenuItem value="Business Faculty">Faculty of Business</MenuItem>
+                <MenuItem value="Medical Faculty">Faculty of Medicine</MenuItem>
               </Select>
-              {errors.faculty && (
+            </FormControl>
+            {errors.faculty && (
                 <FormHelperText error>{errors.faculty}</FormHelperText>
               )}
-            </FormControl>
             {/* <Button
               sx={{ mt: 2 }}
               fullWidth

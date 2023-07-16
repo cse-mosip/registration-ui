@@ -5,17 +5,22 @@ import Container from '@mui/material/Container';
 import Image from 'mui-image';
 import ProgressBar from '../components/ProgressBar';
 import { APP, FACESCAN } from '../constants/constants';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function FingerPrint() {
   const [progress, setProgress] = React.useState(0);
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const studentData = location.state;
+ 
   const handleNext = () => {
-    navigate(`/${APP}/${FACESCAN}`);
+    //TODO: handle fingerprint raw data
+    navigate(`/${APP}/${FACESCAN}`, {state: studentData});
     return;
   };
+  
   return (
+
     <>
       <Container component="main" maxWidth="xs">
         <Typography
