@@ -44,8 +44,8 @@ function RegistrationComplete() {
                 <Image
                   src={
                     import.meta.env.VITE_ENVIRONEMT === 'dev'
-                      ? '../src/assets/image/regComplete.png'
-                      : `${import.meta.env.VITE_CDN_URL}/image/regComplete.png`
+                      ? '../src/assets/regComplete.png'
+                      : `${import.meta.env.VITE_CDN_URL}/regComplete.png`
                   }
                   width="200px"
                   height="200px"

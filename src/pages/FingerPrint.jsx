@@ -32,8 +32,8 @@ export default function FingerPrint() {
         <Image
           src={
             import.meta.env.VITE_ENVIRONEMT === 'dev'
-              ? '../src/assets/image/fingerprint.jpg'
-              : `${import.meta.env.VITE_CDN_URL}/image/fingerprint.jpg`
+              ? '../src/assets/fingerprint.jpg'
+              : `${import.meta.env.VITE_CDN_URL}/fingerprint.jpg`
           }
           height="60vh"
         ></Image>
