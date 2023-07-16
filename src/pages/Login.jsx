@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import {
   Button,
   Checkbox,
@@ -9,9 +10,9 @@ import {
   createTheme,
 } from '@mui/material';
 import { useState } from 'react';
-import UoMLogo from '../assets/image/uom_logo.png';
 import { useNavigate } from 'react-router';
 import { APP } from '../constants/constants';
+import Image from 'mui-image';
 
 export default function LogIn() {
   const [username, setUsername] = useState('');
@@ -107,9 +108,19 @@ export default function LogIn() {
             mb={2}
             sx={{
               textAlign: 'center',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
-            <img src={UoMLogo} />
+            <Image
+              src={
+                import.meta.env.VITE_ENVIRONEMT === 'dev'
+                  ? '../src/assets/image/uom_logo.png'
+                  : `${import.meta.env.VITE_CDN_URL}/image/uom_logo.png`
+              }
+              width="200px"
+            ></Image>
           </Grid>
           <Grid
             item

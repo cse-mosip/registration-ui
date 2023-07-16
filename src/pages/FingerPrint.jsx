@@ -29,7 +29,14 @@ export default function FingerPrint() {
         >
           FingerPrint Scan
         </Typography>
-        <Image src="../src/assets/image/fingerprint.jpg" height="60vh"></Image>
+        <Image
+          src={
+            import.meta.env.VITE_ENVIRONEMT === 'dev'
+              ? '../src/assets/image/fingerprint.jpg'
+              : `${import.meta.env.VITE_CDN_URL}/image/fingerprint.jpg`
+          }
+          height="60vh"
+        ></Image>
         <br />
         <ProgressBar progress={progress} setProgress={setProgress} />
         {progress === 100 && (
