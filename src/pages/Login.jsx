@@ -116,8 +116,8 @@ export default function LogIn() {
             <Image
               src={
                 import.meta.env.VITE_ENVIRONEMT === 'dev'
-                  ? '../src/assets/image/uom_logo.png'
-                  : `${import.meta.env.VITE_CDN_URL}/image/uom_logo.png`
+                  ? '../src/assets/uom_logo.png'
+                  : `${import.meta.env.VITE_CDN_URL}/uom_logo.png`
               }
               width="200px"
             ></Image>
