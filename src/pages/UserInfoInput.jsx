@@ -1,5 +1,4 @@
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -124,7 +123,7 @@ export default function InfoAsker() {
               required
               fullWidth
               name="email"
-              label="email"
+              label="Email"
               id="email"
               autoComplete="email"
               value={student.email}
@@ -163,10 +162,11 @@ export default function InfoAsker() {
               <FormHelperText error>{errors.lastName}</FormHelperText>
             )}
             <FormControl fullWidth margin="normal">
-              <InputLabel id="faculty-select-label">Faculty *</InputLabel>
+              <InputLabel id="faculty-select-label" required>Faculty</InputLabel>
               <Select
                 labelId="faculty-select-label"
                 id="faculty-select"
+                required
                 value={student.faculty}
                 onChange={(e) => setStudent((cur)=> {return {...cur, faculty: e.target.value}})}
                 label="Faculty"
