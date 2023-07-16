@@ -172,13 +172,14 @@ export default function InfoAsker() {
                 label="Faculty"
               >
                 <MenuItem value="Engineering Faculty">
-                  Engineering Faculty
+                  Faculty of Engineering
                 </MenuItem>
                 <MenuItem value="Architecture Faculty">
-                  Architecture Faculty
+                  Faculty of Architecture
                 </MenuItem>
-                <MenuItem value="Business Faculty">Business Faculty</MenuItem>
-                <MenuItem value="Medical Faculty">Medical Faculty</MenuItem>
+                <MenuItem value="IT Faculty">Faculty of Information Technology</MenuItem>
+                <MenuItem value="Business Faculty">Faculty of Business</MenuItem>
+                <MenuItem value="Medical Faculty">Faculty of Medicine</MenuItem>
               </Select>
             </FormControl>
             {errors.faculty && (
