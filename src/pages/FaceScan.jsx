@@ -1,11 +1,10 @@
 import React from 'react';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Image from 'mui-image';
 import ProgressBar from '../components/ProgressBar';
-import { APP, HOME } from '../constants/constants';
+import { APP, REG_COMPLETE } from '../constants/constants';
 import { useNavigate } from 'react-router-dom';
 
 export default function FaceScan() {
@@ -13,7 +12,7 @@ export default function FaceScan() {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    navigate(`/${APP}/${HOME}`);
+    navigate(`/${APP}/${REG_COMPLETE}`);
     return;
   };
 
@@ -31,7 +30,14 @@ export default function FaceScan() {
         >
           Face Scan
         </Typography>
-        <Image src="../src/assets/image/face_scanner.svg" height="60vh"></Image>
+        <Image
+          src={
+            import.meta.env.VITE_ENVIRONEMT === 'dev'
+              ? '../src/assets/image/face_scanner.svg'
+              : `${import.meta.env.VITE_CDN_URL}/image/face_scanner.svg`
+          }
+          height="60vh"
+        ></Image>
         <br />
         <ProgressBar progress={progress} setProgress={setProgress} />
         {progress === 100 && (
