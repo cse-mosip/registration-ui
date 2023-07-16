@@ -19,7 +19,7 @@ export default function InfoAsker() {
 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  const [student, setStudent] = useState({index:'', firstName:'', lastName:'', faculty:'', fingerPrint:'', facePrint:''}); 
+  const [student, setStudent] = useState({index:'', email:'', firstName:'', lastName:'', faculty:'', fingerPrint:'', facePrint:''}); 
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -38,6 +38,10 @@ export default function InfoAsker() {
     }
     if (!data.get('lastName')) {
       newErrors.lastName = 'last name is required';
+      isError = true;
+    }
+    if (!data.get('email')) {
+      newErrors.lastName = 'email is required';
       isError = true;
     }
     if (!student.faculty) {
@@ -66,7 +70,10 @@ export default function InfoAsker() {
         break;   
       case "lastName":
         setStudent((cur)=> {return {...cur, lastName:value}});
-        break;   
+        break;
+      case "email":
+        setStudent((cur)=> {return {...cur, email:value}});
+        break;  
     }
 
   }
@@ -111,6 +118,20 @@ export default function InfoAsker() {
             />
             {errors.index && (
               <FormHelperText error>{errors.index}</FormHelperText>
+            )}
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="email"
+              label="email"
+              id="email"
+              autoComplete="email"
+              value={student.email}
+              onChange={handleChange}
+            />
+            {errors.lastName && (
+              <FormHelperText error>{errors.lastName}</FormHelperText>
             )}
             <TextField
               margin="normal"

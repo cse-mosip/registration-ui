@@ -14,6 +14,7 @@ export default function FingerPrint() {
   const studentData = location.state;
  
   const handleNext = () => {
+    //TODO: handle fingerprint raw data
     navigate(`/${APP}/${FACESCAN}`, {state: studentData});
     return;
   };

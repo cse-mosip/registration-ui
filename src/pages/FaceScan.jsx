@@ -5,8 +5,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Image from 'mui-image';
 import ProgressBar from '../components/ProgressBar';
-import { APP, HOME } from '../constants/constants';
+import { APP, REG_COMPLETE } from '../constants/constants';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Axios from "axios";
 
 export default function FaceScan() {
   const [progress, setProgress] = React.useState(0);
@@ -14,8 +15,17 @@ export default function FaceScan() {
   const location = useLocation();
   const studentData = location.state
 
-  const handleSubmit = () => {
-    console.log("Student Data: ", studentData)
+  const handleSubmit = async () => {
+    //TODO: handle faceprint raw data
+    console.log("Student Data: ", studentData);
+    try{
+      const result = await Axios.post(import.meta.env.VITE_APP_API_URL + "/student", studentData);
+      console.log("Registration Result: ", result.data);
+      navigate(`/${APP}/${REG_COMPLETE}`);
+    }catch (error){
+      console.log("Error registering student", error);
+    }
+
     return;
   };
 
