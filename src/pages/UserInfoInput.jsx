@@ -16,12 +16,14 @@ import { useNavigate } from 'react-router-dom';
 // TODO remove, this demo shouldn't need to reset the theme.
 
 export default function InfoAsker() {
-  const [faculty, setFaculty] = useState('');
+
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const [student, setStudent] = useState({index:'', firstName:'', lastName:'', faculty:'', fingerPrint:'', facePrint:''}); 
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("data", student)
     const data = new FormData(event.currentTarget);
     setErrors({});
     const newErrors = {};
@@ -38,7 +40,7 @@ export default function InfoAsker() {
       newErrors.lastName = 'last name is required';
       isError = true;
     }
-    if (!faculty) {
+    if (!student.faculty) {
       newErrors.faculty = 'faculty is required';
       isError = true;
     }
@@ -48,8 +50,26 @@ export default function InfoAsker() {
       return;
     }
 
-    navigate(`/${APP}/${FINGERPRINTLOAD}`);
+    navigate(`/${APP}/${FINGERPRINTLOAD}`, {state: student});
   };
+
+  const handleChange = (event)=>{
+    const name = event.target.name;
+    const value = event.target.value;
+
+    switch (name){
+      case "index":
+        setStudent((cur)=> {return {...cur, index:value}});
+        break;
+      case "firstName":
+        setStudent((cur)=> {return {...cur, firstName:value}});
+        break;   
+      case "lastName":
+        setStudent((cur)=> {return {...cur, lastName:value}});
+        break;   
+    }
+
+  }
 
   return (
     <>
@@ -86,6 +106,8 @@ export default function InfoAsker() {
               name="index"
               autoComplete="index"
               autoFocus
+              value = {student.index}
+              onChange={handleChange}
             />
             {errors.index && (
               <FormHelperText error>{errors.index}</FormHelperText>
@@ -98,6 +120,8 @@ export default function InfoAsker() {
               label="First Name"
               id="firstName"
               autoComplete="first name"
+              value = {student.firstName}
+              onChange={handleChange}
             />
 
             {errors.firstName && (
@@ -111,6 +135,8 @@ export default function InfoAsker() {
               label="Last Name"
               id="lastName"
               autoComplete="last name"
+              value={student.lastName}
+              onChange={handleChange}
             />
             {errors.lastName && (
               <FormHelperText error>{errors.lastName}</FormHelperText>
@@ -120,8 +146,8 @@ export default function InfoAsker() {
               <Select
                 labelId="faculty-select-label"
                 id="faculty-select"
-                value={faculty}
-                onChange={(e) => setFaculty(e.target.value)}
+                value={student.faculty}
+                onChange={(e) => setStudent((cur)=> {return {...cur, faculty: e.target.value}})}
                 label="Faculty"
               >
                 <MenuItem value="Engineering Faculty">

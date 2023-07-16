@@ -6,14 +6,16 @@ import Container from '@mui/material/Container';
 import Image from 'mui-image';
 import ProgressBar from '../components/ProgressBar';
 import { APP, HOME } from '../constants/constants';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function FaceScan() {
   const [progress, setProgress] = React.useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
+  const studentData = location.state
 
   const handleSubmit = () => {
-    navigate(`/${APP}/${HOME}`);
+    console.log("Student Data: ", studentData)
     return;
   };
 
