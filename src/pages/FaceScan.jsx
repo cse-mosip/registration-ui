@@ -33,8 +33,8 @@ export default function FaceScan() {
         <Image
           src={
             import.meta.env.VITE_ENVIRONEMT === 'dev'
-              ? '../src/assets/face_scanner.svg'
-              : `${import.meta.env.VITE_CDN_URL}/face_scanner.svg`
+              ? '../src/assets/face_scanner.png'
+              : `${import.meta.env.VITE_CDN_URL}/face_scanner.png`
           }
           height="60vh"
         ></Image>
