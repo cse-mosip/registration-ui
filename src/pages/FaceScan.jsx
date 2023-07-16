@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Image from 'mui-image';
@@ -43,7 +42,14 @@ export default function FaceScan() {
         >
           Face Scan
         </Typography>
-        <Image src="../src/assets/image/face_scanner.svg" height="60vh"></Image>
+        <Image
+          src={
+            import.meta.env.VITE_ENVIRONEMT === 'dev'
+              ? '../src/assets/face_scanner.png'
+              : `${import.meta.env.VITE_CDN_URL}/face_scanner.png`
+          }
+          height="60vh"
+        ></Image>
         <br />
         <ProgressBar progress={progress} setProgress={setProgress} />
         {progress === 100 && (
