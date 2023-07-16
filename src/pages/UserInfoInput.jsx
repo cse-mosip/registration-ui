@@ -28,23 +28,23 @@ export default function InfoAsker() {
     const newErrors = {};
     let isError = false;
     if (!data.get('index')) {
-      newErrors.index = 'index no is required';
+      newErrors.index = 'Index No is required!';
       isError = true;
     }
     if (!data.get('firstName')) {
-      newErrors.firstName = 'first name is required';
+      newErrors.firstName = 'First name is required!';
       isError = true;
     }
     if (!data.get('lastName')) {
-      newErrors.lastName = 'last name is required';
+      newErrors.lastName = 'Last name is required!';
       isError = true;
     }
     if (!data.get('email')) {
-      newErrors.lastName = 'email is required';
+      newErrors.email = 'Email is required!';
       isError = true;
     }
     if (!student.faculty) {
-      newErrors.faculty = 'faculty is required';
+      newErrors.faculty = 'Faculty is required!';
       isError = true;
     }
 
@@ -129,8 +129,8 @@ export default function InfoAsker() {
               value={student.email}
               onChange={handleChange}
             />
-            {errors.lastName && (
-              <FormHelperText error>{errors.lastName}</FormHelperText>
+            {errors.email && (
+              <FormHelperText error>{errors.email}</FormHelperText>
             )}
             <TextField
               margin="normal"
@@ -180,10 +180,10 @@ export default function InfoAsker() {
                 <MenuItem value="Business Faculty">Business Faculty</MenuItem>
                 <MenuItem value="Medical Faculty">Medical Faculty</MenuItem>
               </Select>
-              {errors.faculty && (
+            </FormControl>
+            {errors.faculty && (
                 <FormHelperText error>{errors.faculty}</FormHelperText>
               )}
-            </FormControl>
             {/* <Button
               sx={{ mt: 2 }}
               fullWidth
