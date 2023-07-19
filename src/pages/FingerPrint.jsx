@@ -84,7 +84,7 @@ export default function FingerPrint() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            {edit ? "Save" : "Next"}
+            {edit ? "Save" : "Register User"}
           </Button>
         )}
       </Container>
