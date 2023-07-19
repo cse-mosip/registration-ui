@@ -9,12 +9,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useEffect, useState } from "react";
 import { FormHelperText } from "@mui/material";
-import {
-  APP,
-  EDIT_COMPLETE,
-  FACESCAN,
-  FINGERPRINTLOAD,
-} from "../constants/constants";
+import { APP, EDIT_COMPLETE, FINGERPRINTLOAD } from "../constants/constants";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";

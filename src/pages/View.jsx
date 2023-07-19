@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router";
-import { APP, EDIT, FINGERPRINTLOAD } from "../constants/constants";
+import { APP, EDIT } from "../constants/constants";
 
 function View() {
   const [students, setStudents] = useState([]);
