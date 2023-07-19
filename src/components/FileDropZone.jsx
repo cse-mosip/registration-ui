@@ -15,24 +15,24 @@ function arrayBufferToBase64(buffer) {
 }
 
 export default function FileDropZone(props) {
-    const onDrop = useCallback((acceptedFiles) => {
-        console.log(acceptedFiles);
-        acceptedFiles.forEach((file) => {
-            const reader = new FileReader();
+    const onDrop = useCallback(
+        (acceptedFiles) => {
+            acceptedFiles.forEach((file) => {
+                const reader = new FileReader();
 
-            reader.onabort = () => console.log("file reading was aborted");
-            reader.onerror = () => console.log("file reading has failed");
-            reader.onload = () => {
-                // Do whatever you want with the file contents
-                const binaryStr = reader.result;
-                const res = arrayBufferToBase64(binaryStr);
-                props.setImage("data:image/webp;base64," + res);
-                console.log(binaryStr);
-                console.log(res);
-            };
-            reader.readAsArrayBuffer(file);
-        });
-    }, [props]);
+                reader.onabort = () => console.log("file reading was aborted");
+                reader.onerror = () => console.log("file reading has failed");
+                reader.onload = () => {
+                    // Do whatever you want with the file contents
+                    const binaryStr = reader.result;
+                    const res = arrayBufferToBase64(binaryStr);
+                    props.setImage("data:image/webp;base64," + res);
+                };
+                reader.readAsArrayBuffer(file);
+            });
+        },
+        [props]
+    );
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
         accept: {

@@ -29,7 +29,6 @@ export default function InfoAsker() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("data", student);
         const data = new FormData(event.currentTarget);
         setErrors({});
         const newErrors = {};
@@ -59,13 +58,12 @@ export default function InfoAsker() {
             setErrors(newErrors);
             return;
         }
-        navigate(`/${APP}/${FACESCAN}`);
+        navigate(`/${APP}/${FACESCAN}`, { state: student });
     };
 
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-
         switch (name) {
             case "index":
                 setStudent((cur) => {

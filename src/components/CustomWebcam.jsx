@@ -17,16 +17,20 @@ export default function CustomWebcam(props) {
     const capture = useCallback(() => {
         const imageSrc = webcamRef.current.getScreenshot();
         props.setImage(imageSrc);
-        props.captureImage(imageSrc);
     }, [props]);
     const retake = () => {
         props.setImage(null);
-        props.captureImage(null);
     };
     return (
         <div className="container">
             {props.imgSrc ? (
-                <img src={props.imgSrc} alt="webcam" height={640} width={480} />
+                <img
+                    src={props.imgSrc}
+                    alt="webcam"
+                    height={640}
+                    width={480}
+                    style={{ objectFit: "cover" }}
+                />
             ) : (
                 <Webcam
                     style={{
@@ -61,7 +65,6 @@ export default function CustomWebcam(props) {
 }
 
 CustomWebcam.propTypes = {
-    captureImage: PropTypes.func.isRequired,
     setImage: PropTypes.func.isRequired,
     imgSrc: PropTypes.any,
 };

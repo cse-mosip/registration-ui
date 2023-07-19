@@ -6,7 +6,7 @@ import Image from "mui-image";
 import ProgressBar from "../components/ProgressBar";
 import { APP, REG_COMPLETE } from "../constants/constants";
 import { useNavigate, useLocation } from "react-router-dom";
-import Axios from "axios";
+import axios from "axios";
 
 export default function FingerPrint() {
     const [progress, setProgress] = React.useState(0);
@@ -16,14 +16,28 @@ export default function FingerPrint() {
 
     const handleSubmit = async () => {
         //TODO: handle faceprint raw data
-        console.log("Student Data: ", studentData);
+
+        const bodyFormData = new FormData();
+        for (var key in studentData) {
+            bodyFormData.append(key, studentData[key]);
+        }
+
+        const endPoint = import.meta.env.VITE_APP_API_URL + "/student/";
+
         try {
-            const result = await Axios.post(
-                import.meta.env.VITE_APP_API_URL + "/student",
-                studentData
-            );
-            console.log("Registration Result: ", result.data);
-            navigate(`/${APP}/${REG_COMPLETE}`);
+            await axios
+                .post(endPoint, studentData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+                .then((res) => {
+                    console.log("Registration Result: ", res.data);
+                    navigate(`/${APP}/${REG_COMPLETE}`);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         } catch (error) {
             console.log("Error registering student", error);
         }

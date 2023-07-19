@@ -14,14 +14,14 @@ export default function FaceScan() {
     const location = useLocation();
     const studentData = location.state;
 
-    const captureImage = (image) => {
-        console.log(image);
-    };
-
     const handleNext = () => {
-        console.log("studentData: ", studentData);
-        //TODO: handle fingerprint raw data
-        navigate(`/${APP}/${FINGERPRINTLOAD}`);
+        const newData = {
+            ...studentData,
+            photo: imgSrc,
+            department: "CSE",
+        };
+        //TODO: handle fingerprint raw data add 'department' field to the form
+        navigate(`/${APP}/${FINGERPRINTLOAD}`, { state: newData });
         return;
     };
 
@@ -58,11 +58,7 @@ export default function FaceScan() {
                     textAlign={"center"}
                     justifyContent={"center"}
                 >
-                    <CustomWebcam
-                        captureImage={captureImage}
-                        imgSrc={imgSrc}
-                        setImage={setImage}
-                    />
+                    <CustomWebcam imgSrc={imgSrc} setImage={setImage} />
                 </Grid>
                 <Grid
                     container
@@ -99,7 +95,7 @@ export default function FaceScan() {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                     >
-                        Add Student Photo
+                        Add Photo
                     </Button>
                 </Grid>
                 <br />
