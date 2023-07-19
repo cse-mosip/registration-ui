@@ -7,10 +7,18 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormHelperText } from "@mui/material";
-import { APP, FINGERPRINTLOAD } from "../constants/constants";
-import { useNavigate } from "react-router-dom";
+import {
+  APP,
+  EDIT_COMPLETE,
+  FACESCAN,
+  FINGERPRINTLOAD,
+} from "../constants/constants";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import FingerprintIcon from "@mui/icons-material/Fingerprint";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import Axios from "axios";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -71,10 +79,14 @@ const departments = {
   ],
 };
 
-export default function InfoAsker() {
+export default function EditStudent() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const location = useLocation();
+  const studentData = location.state;
+
   const [student, setStudent] = useState({
+    id: "",
     index: "",
     email: "",
     firstName: "",
@@ -85,7 +97,13 @@ export default function InfoAsker() {
     department: "",
   });
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+    if (studentData) {
+      setStudent(studentData);
+    }
+  }, []);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("data", student);
     const data = new FormData(event.currentTarget);
@@ -118,7 +136,19 @@ export default function InfoAsker() {
       return;
     }
 
-    navigate(`/${APP}/${FINGERPRINTLOAD}`, { state: {student: student} });
+    console.log("Student Data: ", student);
+    try {
+      const result = await Axios.put(
+        import.meta.env.VITE_APP_API_URL + `/student/${student.id}`,
+        student
+      );
+      console.log("Registration Result: ", result.data);
+      navigate(`/${APP}/${EDIT_COMPLETE}`);
+    } catch (error) {
+      console.log("Error registering student", error);
+    }
+
+    return;
   };
 
   const handleChange = (event) => {
@@ -161,7 +191,7 @@ export default function InfoAsker() {
           }}
         >
           <Typography component="h1" variant="h5">
-            Add Student
+            Edit Student Details
           </Typography>
           <Box
             component="form"
@@ -293,12 +323,37 @@ export default function InfoAsker() {
               </FormControl>
             )}
             <Button
+              sx={{ mt: 2 }}
+              fullWidth
+              variant="outlined"
+              color="secondary"
+              startIcon={<AccountCircleIcon />}
+              component={Link}
+              to=""
+            >
+              Change Profile Picture
+            </Button>
+            <Button
+              sx={{ mt: 2 }}
+              fullWidth
+              variant="outlined"
+              color="secondary"
+              startIcon={<FingerprintIcon />}
+              onClick={() => {
+                navigate(`/${APP}/${FINGERPRINTLOAD}`, {
+                  state: { edit: true, student: student },
+                });
+              }}
+            >
+              Change Fingerprint
+            </Button>
+            <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Next
+              Save
             </Button>
           </Box>
         </Box>
