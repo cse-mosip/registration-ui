@@ -14,10 +14,6 @@ const items = [
     title: "View Registered Students",
     path: VIEW,
   },
-  {
-    image: "https://cdn-icons-png.flaticon.com/512/2522/2522138.png",
-    title: "Edit Student Details",
-  },
 ];
 
 function Home() {

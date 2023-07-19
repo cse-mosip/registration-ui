@@ -7,7 +7,7 @@ import { APP, HOME } from "../constants/constants";
 import { useNavigate } from "react-router-dom";
 import Image from "mui-image";
 
-function RegistrationComplete() {
+function EditComplete() {
   const navigate = useNavigate();
   return (
     <Container component="main" maxWidth="xs">
@@ -46,7 +46,7 @@ function RegistrationComplete() {
               height="200px"
             ></Image>
             <Typography component="h1" variant="h4">
-              Registration Completed
+              Updated Successfully
             </Typography>
             <Button
               onClick={() => {
@@ -64,4 +64,4 @@ function RegistrationComplete() {
   );
 }
 
-export default RegistrationComplete;
+export default EditComplete;
