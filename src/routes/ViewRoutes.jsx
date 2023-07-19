@@ -7,6 +7,8 @@ import {
   FINGERPRINTLOAD,
   FACESCAN,
   REG_COMPLETE,
+  EDIT,
+  EDIT_COMPLETE,
 } from '../constants/constants';
 import Home from '../pages/Home';
 import View from '../pages/View';
@@ -16,6 +18,8 @@ import LogIn from '../pages/Login';
 import FingerPrint from '../pages/FingerPrint';
 import FaceScan from '../pages/FaceScan';
 import RegistrationComplete from '../pages/RegistrationComplete';
+import EditStudent from '../pages/EditStudent';
+import EditComplete from '../pages/EditComplete';
 
 const ViewRoutes = () => {
   return (
@@ -29,6 +33,8 @@ const ViewRoutes = () => {
         <Route exact path={FINGERPRINTLOAD} element={<FingerPrint />} />
         <Route exact path={FACESCAN} element={<FaceScan />} />
         <Route exact path={REG_COMPLETE} element={<RegistrationComplete />} />
+        <Route exact path={EDIT} element={<EditStudent />} />
+        <Route exact path={EDIT_COMPLETE} element={<EditComplete />} />
       </Route>
     </Routes>
   );

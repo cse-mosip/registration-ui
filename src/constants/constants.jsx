@@ -7,3 +7,5 @@ export const LOGIN = 'login';
 export const FINGERPRINTLOAD = 'fingerprint';
 export const FACESCAN = 'facescan';
 export const REG_COMPLETE = 'regsuccess';
+export const EDIT = 'edit';
+export const EDIT_COMPLETE = 'editsuccess';
