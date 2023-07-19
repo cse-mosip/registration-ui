@@ -18,10 +18,9 @@ export default function FaceScan() {
         const newData = {
             ...studentData,
             photo: imgSrc,
-            department: "CSE",
         };
-        //TODO: handle fingerprint raw data add 'department' field to the form
-        navigate(`/${APP}/${FINGERPRINTLOAD}`, { state: newData });
+        //TODO: handle fingerprint raw data
+        navigate(`/${APP}/${FINGERPRINTLOAD}`, { state: { student: newData } });
         return;
     };
 
