@@ -29,6 +29,16 @@ export default function CustomWebcam(props) {
                 <img src={props.imgSrc} alt="webcam" height={640} width={480} />
             ) : (
                 <Webcam
+                    style={{
+                        borderStyle: "solid",
+                        borderWidth: "1px",
+                        borderColor: "#3b42f2",
+                        background: "#3b42f2",
+                        backgroundImage: `url('https://cdn-icons-png.flaticon.com/512/2522/2522138.png')`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundAttachment: "fixed",
+                        backgroundPosition: "center center",
+                    }}
                     height={640}
                     width={480}
                     ref={webcamRef}
