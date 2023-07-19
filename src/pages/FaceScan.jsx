@@ -1,20 +1,22 @@
-import React from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-// import Image from "mui-image";
-import Webcam from "react-webcam";
-import ProgressBar from "../components/ProgressBar";
 import { APP, FINGERPRINTLOAD } from "../constants/constants";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Grid } from "@mui/material";
+import { Divider, Grid } from "@mui/material";
 import CustomWebcam from "../components/CustomWebcam";
+import FileDropZone from "../components/FileDropZone";
 
 export default function FaceScan() {
-    const [progress, setProgress] = React.useState(0);
+    const [imgSrc, setImgSrc] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
     const studentData = location.state;
+
+    const captureImage = (image) => {
+        console.log(image);
+    };
 
     const handleNext = () => {
         console.log("studentData: ", studentData);
@@ -23,10 +25,19 @@ export default function FaceScan() {
         return;
     };
 
+    const setImage = (image) => {
+        setImgSrc(image);
+    };
+
     return (
         <>
             <Container component="main">
-                <Grid container justifyContent={"center"}>
+                <Grid
+                    container
+                    mt={5}
+                    textAlign={"center"}
+                    justifyContent={"center"}
+                >
                     <Grid>
                         <Typography
                             variant="h5"
@@ -41,10 +52,47 @@ export default function FaceScan() {
                         </Typography>
                     </Grid>
                 </Grid>
-                <Grid textAlign={"center"}>
-                    <CustomWebcam />
+                <Grid
+                    container
+                    mt={5}
+                    textAlign={"center"}
+                    justifyContent={"center"}
+                >
+                    <CustomWebcam
+                        captureImage={captureImage}
+                        imgSrc={imgSrc}
+                        setImage={setImage}
+                    />
                 </Grid>
-                <Grid textAlign={"center"}>
+                <Grid
+                    container
+                    mt={5}
+                    textAlign={"center"}
+                    justifyContent={"center"}
+                >
+                    <Divider
+                        sx={{ width: 480 }}
+                        orientation="horizontal"
+                        flexItem
+                    >
+                        Or
+                    </Divider>
+                </Grid>
+
+                <Grid
+                    container
+                    mt={5}
+                    textAlign={"center"}
+                    justifyContent={"center"}
+                >
+                    <FileDropZone setImage={setImage} />
+                </Grid>
+                <Grid
+                    container
+                    mt={5}
+                    textAlign={"center"}
+                    justifyContent={"center"}
+                >
                     <Button
                         type="button"
                         onClick={handleNext}
@@ -54,16 +102,7 @@ export default function FaceScan() {
                         Add Student Photo
                     </Button>
                 </Grid>
-                {/* <Image
-                    src={
-                        import.meta.env.VITE_ENVIRONEMT === "dev"
-                            ? "../src/assets/face_scanner.png"
-                            : `${import.meta.env.VITE_CDN_URL}/face_scanner.png`
-                    }
-                    height="60vh"
-                ></Image> */}
                 <br />
-                {/* <ProgressBar progress={progress} setProgress={setProgress} /> */}
             </Container>
         </>
     );
