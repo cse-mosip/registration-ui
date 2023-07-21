@@ -6,7 +6,7 @@ const items = [
   {
     image:
       "https://icons.veryicon.com/png/o/miscellaneous/management-console-icon-update-0318/add-user-25.png",
-    title: "Add Student",
+    title: "Add User",
     path: ASKINFO,
   },
   {
