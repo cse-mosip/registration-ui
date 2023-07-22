@@ -75,7 +75,6 @@ const roles=[
       lastName: "",
       faculty: "",
       fingerPrint: "",
-      facePrint: "",
       department: "",
     }
   }
