@@ -13,6 +13,72 @@ import { APP, FINGERPRINTLOAD } from "../constants/constants";
 import { useNavigate } from "react-router-dom";
 
 // TODO remove, this demo shouldn't need to reset the theme.
+const roles=[
+    {
+      role:"student",
+      displayName:"student",
+      properties:{
+        index: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        faculty: "",
+        fingerPrint: "",
+        facePrint: "",
+        department: "",
+        photo:""
+      }
+    },
+  {
+    role:"admin",
+    displayName: "admin",
+    properties:{
+      index: "",
+      email: "",
+      firstName: "",
+      lastName: "",
+      faculty: "",
+      fingerPrint: "",
+      department: "",
+      photo:""
+    }
+  },
+  {
+    role:"security",
+    displayName:"security",
+    properties: {
+      index:"",
+      photo:"",
+      fingerPrint: "",
+      facePrint: "",
+    }
+  } ,
+  {
+    role: "academicStaff",
+    displayName: "academic staff",
+    properties:{
+      index: "",
+      email: "",
+      firstName: "",
+      lastName: "",
+      faculty: "",
+      fingerPrint: "",
+      department: "",
+      photo:""
+    }
+  },
+  {
+    role:"nonAcademicStaff",
+    displayName: "non academic staff",
+    properties:{
+      firstName: "",
+      lastName: "",
+      faculty: "",
+      fingerPrint: "",
+      department: "",
+    }
+  }
+  ]
 
 const departments = {
   "Engineering Faculty": [
@@ -74,51 +140,49 @@ const departments = {
 export default function InfoAsker() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  const [student, setStudent] = useState({
-    index: "",
-    email: "",
-    firstName: "",
-    lastName: "",
-    faculty: "",
-    fingerPrint: "",
-    facePrint: "",
-    department: "",
-  });
+  const [role,setRole]=useState('')
+  const [roleDisplayName,setRoleDisplayName]=useState('')
+  const [user,setUser]=useState({})
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("data", student);
+    console.log("data", user);
     const data = new FormData(event.currentTarget);
     setErrors({});
     const newErrors = {};
     let isError = false;
-    if (!data.get("index")) {
-      newErrors.index = "Index No is required!";
-      isError = true;
+    if(role !== "nonAcademicStaff"){
+      if (!data.get("index")) {
+        newErrors.index = "Index No is required!";
+        isError = true;
+      }
     }
-    if (!data.get("firstName")) {
-      newErrors.firstName = "First name is required!";
-      isError = true;
+    if(role !== "security"){
+      if (!data.get("firstName")) {
+        newErrors.firstName = "First name is required!";
+        isError = true;
+      }
+      if (!data.get("lastName")) {
+        newErrors.lastName = "Last name is required!";
+        isError = true;
+      }
+      if (!user.faculty) {
+        newErrors.faculty = "Faculty is required!";
+        isError = true;
+      }
     }
-    if (!data.get("lastName")) {
-      newErrors.lastName = "Last name is required!";
-      isError = true;
+    if(role !== "nonAcademicStaff"&& role !== "security"){
+      if (!data.get("email")) {
+        newErrors.email = "Email is required!";
+        isError = true;
+      }
     }
-    if (!data.get("email")) {
-      newErrors.email = "Email is required!";
-      isError = true;
-    }
-    if (!student.faculty) {
-      newErrors.faculty = "Faculty is required!";
-      isError = true;
-    }
-
     if (isError) {
       setErrors(newErrors);
       return;
     }
 
-    navigate(`/${APP}/${FINGERPRINTLOAD}`, { state: {student: student} });
+    navigate(`/${APP}/${FINGERPRINTLOAD}`, { state: {role:role,user: user} });
   };
 
   const handleChange = (event) => {
@@ -127,28 +191,27 @@ export default function InfoAsker() {
 
     switch (name) {
       case "index":
-        setStudent((cur) => {
+        setUser((cur) => {
           return { ...cur, index: value };
         });
         break;
       case "firstName":
-        setStudent((cur) => {
+        setUser((cur) => {
           return { ...cur, firstName: value };
         });
         break;
       case "lastName":
-        setStudent((cur) => {
+        setUser((cur) => {
           return { ...cur, lastName: value };
         });
         break;
       case "email":
-        setStudent((cur) => {
+        setUser((cur) => {
           return { ...cur, email: value };
         });
         break;
     }
   };
-
   return (
     <>
       <Container component="main" maxWidth="xs">
@@ -160,147 +223,184 @@ export default function InfoAsker() {
             alignItems: "center",
           }}
         >
-          <Typography component="h1" variant="h5">
-            Add Student
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{
-              mt: 1,
-              border: "1px solid blue",
-              borderRadius: "4px",
-              padding: "16px",
-              backgroundColor: "#FFFFFF",
-            }}
-          >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="index"
-              label="Index Number"
-              name="index"
-              autoComplete="index"
-              autoFocus
-              value={student.index}
-              onChange={handleChange}
-            />
-            {errors.index && (
-              <FormHelperText error>{errors.index}</FormHelperText>
-            )}
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="email"
-              label="Email"
-              id="email"
-              autoComplete="email"
-              value={student.email}
-              onChange={handleChange}
-            />
-            {errors.email && (
-              <FormHelperText error>{errors.email}</FormHelperText>
-            )}
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="firstName"
-              label="First Name"
-              id="firstName"
-              autoComplete="first name"
-              value={student.firstName}
-              onChange={handleChange}
-            />
-
-            {errors.firstName && (
-              <FormHelperText error>{errors.firstName}</FormHelperText>
-            )}
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="lastName"
-              label="Last Name"
-              id="lastName"
-              autoComplete="last name"
-              value={student.lastName}
-              onChange={handleChange}
-            />
-            {errors.lastName && (
-              <FormHelperText error>{errors.lastName}</FormHelperText>
-            )}
-            <FormControl fullWidth margin="normal">
-              <InputLabel id="faculty-select-label" required>
-                Faculty
-              </InputLabel>
-              <Select
-                labelId="faculty-select-label"
-                id="faculty-select"
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="role-select-label" required>
+              Select Role
+            </InputLabel>
+            <Select
+                labelId="role-select-label"
+                id="role-select"
                 required
-                value={student.faculty}
-                onChange={(e) =>
-                  setStudent((cur) => {
-                    return { ...cur, faculty: e.target.value };
-                  })
+                value={role}
+                onChange={(e) =>{
+                  const selectedRole = e.target.value;
+                  const selectedRoleData = roles.find((user) => user.role === selectedRole);
+                  setRole(selectedRole);
+                  setRoleDisplayName(selectedRoleData.displayName);
+                  setUser(selectedRoleData.properties);
                 }
-                label="Faculty"
-              >
-                <MenuItem value="Engineering Faculty">
-                  Faculty of Engineering
-                </MenuItem>
-                <MenuItem value="Architecture Faculty">
-                  Faculty of Architecture
-                </MenuItem>
-                <MenuItem value="IT Faculty">
-                  Faculty of Information Technology
-                </MenuItem>
-                <MenuItem value="Business Faculty">
-                  Faculty of Business
-                </MenuItem>
-                <MenuItem value="Medical Faculty">Faculty of Medicine</MenuItem>
-              </Select>
-            </FormControl>
-            {errors.faculty && (
-              <FormHelperText error>{errors.faculty}</FormHelperText>
-            )}
-            {student.faculty && (
-              <FormControl fullWidth margin="normal">
-                <InputLabel id="department-select-label" required>
-                  Department
-                </InputLabel>
-                <Select
-                  labelId="department-select-label"
-                  id="department-select"
-                  required
-                  value={student.department}
-                  onChange={(e) =>
-                    setStudent((cur) => {
-                      return { ...cur, department: e.target.value };
-                    })
-                  }
-                  label="Department"
-                >
-                  {departments[student.faculty].map((department, i) => (
-                    <MenuItem key={i} value={department.name}>
-                      {department.name} - {department.code}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            )}
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+                }
+                label="role"
             >
-              Next
-            </Button>
-          </Box>
+              {roles.map((user,i)=>(
+                  <MenuItem key={i} value={user.role}>
+                    {user.displayName}
+                  </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          {
+            role &&
+            <>
+              <Typography component="h1" variant="h5">
+                Add {roleDisplayName}
+              </Typography>
+              <Box
+                  component="form"
+                  onSubmit={handleSubmit}
+                  noValidate
+                  sx={{
+                    mt: 1,
+                    border: "1px solid blue",
+                    borderRadius: "4px",
+                    padding: "16px",
+                    backgroundColor: "#FFFFFF",
+                  }}
+              >
+                {role !== 'nonAcademicStaff' && <>
+                  <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="index"
+                      label="Index Number"
+                      name="index"
+                      autoComplete="index"
+                      autoFocus
+                      value={user.index}
+                      onChange={handleChange}
+                  />
+                  {errors.index && (
+                      <FormHelperText error>{errors.index}</FormHelperText>
+                  )}
+                </>}
+                {(role !== "security") && (role !== "nonAcademicStaff") && <>
+                  <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="email"
+                      label="Email"
+                      id="email"
+                      autoComplete="email"
+                      value={user.email}
+                      onChange={handleChange}
+                  />
+                  {errors.email && (
+                      <FormHelperText error>{errors.email}</FormHelperText>
+                  )}
+                </>}
+                {role !== "security" && <>
+                  <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="firstName"
+                      label="First Name"
+                      id="firstName"
+                      autoComplete="first name"
+                      value={user.firstName}
+                      onChange={handleChange}
+                  />
+
+                  {errors.firstName && (
+                      <FormHelperText error>{errors.firstName}</FormHelperText>
+                  )}
+                  <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="lastName"
+                      label="Last Name"
+                      id="lastName"
+                      autoComplete="last name"
+                      value={user.lastName}
+                      onChange={handleChange}
+                  />
+                  {errors.lastName && (
+                      <FormHelperText error>{errors.lastName}</FormHelperText>
+                  )}
+                  <FormControl fullWidth margin="normal">
+                    <InputLabel id="faculty-select-label" required>
+                      Faculty
+                    </InputLabel>
+                    <Select
+                        labelId="faculty-select-label"
+                        id="faculty-select"
+                        required
+                        value={user.faculty}
+                        onChange={(e) =>
+                            setUser((cur) => {
+                              return {...cur, faculty: e.target.value};
+                            })
+                        }
+                        label="Faculty"
+                    >
+                      <MenuItem value="Engineering Faculty">
+                        Faculty of Engineering
+                      </MenuItem>
+                      <MenuItem value="Architecture Faculty">
+                        Faculty of Architecture
+                      </MenuItem>
+                      <MenuItem value="IT Faculty">
+                        Faculty of Information Technology
+                      </MenuItem>
+                      <MenuItem value="Business Faculty">
+                        Faculty of Business
+                      </MenuItem>
+                      <MenuItem value="Medical Faculty">Faculty of Medicine</MenuItem>
+                    </Select>
+                  </FormControl>
+                  {errors.faculty && (
+                      <FormHelperText error>{errors.faculty}</FormHelperText>
+                  )}
+                  {user.faculty && (
+                      <FormControl fullWidth margin="normal">
+                        <InputLabel id="department-select-label" required>
+                          Department
+                        </InputLabel>
+                        <Select
+                            labelId="department-select-label"
+                            id="department-select"
+                            required
+                            value={user.department}
+                            onChange={(e) =>
+                                setUser((cur) => {
+                                  return {...cur, department: e.target.value};
+                                })
+                            }
+                            label="Department"
+                        >
+                          {departments[user.faculty].map((department, i) => (
+                              <MenuItem key={i} value={department.name}>
+                                {department.name} - {department.code}
+                              </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                  )}
+                </>}
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                >
+                  Next
+                </Button>
+              </Box>
+            </>
+          }
         </Box>
       </Container>
     </>
