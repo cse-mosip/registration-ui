@@ -15,8 +15,6 @@ import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Axios from "axios";
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const departments = {
   "Engineering Faculty": [
     { name: "Department of Computer Science and Engineering", code: "CSE" },
