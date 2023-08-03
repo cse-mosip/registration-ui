@@ -12,8 +12,7 @@ import { FormHelperText } from "@mui/material";
 import { APP, FACESCAN } from "../constants/constants";
 import { useNavigate } from "react-router-dom";
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const roles = [
+const roles=[
     {
         role: "student",
         displayName: "student",
