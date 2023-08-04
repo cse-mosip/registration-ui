@@ -4,8 +4,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Image from 'mui-image';
 import ProgressBar from '../components/ProgressBar';
-import { APP, EDIT, FACESCAN } from '../constants/constants';
+import { APP, EDIT, REG_COMPLETE } from '../constants/constants';
 import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 export default function FingerPrint() {
   const [progress, setProgress] = React.useState(0);
@@ -14,11 +15,36 @@ export default function FingerPrint() {
   const studentData = location.state.student;
   const edit = location.state.edit;
  
-  const handleNext = () => {
-    //TODO: handle fingerprint raw data
-    navigate(`/${APP}/${FACESCAN}`, {state: studentData});
+  const handleSubmit = async () => {
+    //TODO: handle faceprint raw data
+
+    const bodyFormData = new FormData();
+    for (var key in studentData) {
+        bodyFormData.append(key, studentData[key]);
+    }
+
+    const endPoint = import.meta.env.VITE_APP_API_URL + "/student/";
+
+    try {
+        await axios
+            .post(endPoint, studentData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
+            .then((res) => {
+                console.log("Registration Result: ", res.data);
+                navigate(`/${APP}/${REG_COMPLETE}`);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    } catch (error) {
+        console.log("Error registering student", error);
+    }
+
     return;
-  };
+};
 
   const handleSave = () => {
     //TODO: handle fingerprint raw data
@@ -53,12 +79,12 @@ export default function FingerPrint() {
         {progress === 100 && (
           <Button
             type="button"
-            onClick={edit ? handleSave : handleNext}
+            onClick={edit ? handleSave : handleSubmit}
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            {edit ? "Save" : "Next"}
+            {edit ? "Save" : "Register User"}
           </Button>
         )}
       </Container>
