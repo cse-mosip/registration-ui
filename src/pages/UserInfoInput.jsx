@@ -182,7 +182,7 @@ export default function InfoAsker() {
       return;
     }
 
-    navigate(`/${APP}/${FINGERPRINTLOAD}`, { state: {role:role,user: user} });
+    navigate(`/${APP}/${FINGERPRINTLOAD}`, { state: {role:role,user: user,next:"leftfourfingers"} });
   };
 
   const handleChange = (event) => {
