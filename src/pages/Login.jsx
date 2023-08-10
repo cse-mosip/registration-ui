@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { APP } from '../constants/constants';
 import Image from 'mui-image';
+import axios from "axios";
 
 export default function LogIn() {
   const [username, setUsername] = useState('');
@@ -33,16 +34,21 @@ export default function LogIn() {
       setErrors(newErrors);
       return;
     }
-
-    //todo: implement backend integration
     else {
-      if (!username.includes('@cse.mrt.ac.lk')) {
-        newErrors.username = 'Incorrect username or password';
-        newErrors.password = 'Incorrect username or password';
+      axios.post(import.meta.env.VITE_APP_API_URL +'/api/authorization/signIn', {
+        email: username,
+        password: password
+      }).then((data)=>{
+        console.log("Login successfull", data);
+        sessionStorage.setItem("token", data.data);
+        navigate(`/${APP}`);
+      }).catch((err)=>{
+        console.log("Login failed", err);
+        newErrors.username = 'Incorrect email or password';
+        newErrors.password = 'Incorrect email or password';
         setErrors(newErrors);
         return;
-      }
-      navigate(`/${APP}`);
+      });
     }
   };
   const theme = createTheme({
@@ -136,7 +142,7 @@ export default function LogIn() {
                 fullWidth
                 value={username}
                 id="username"
-                label="Username"
+                label="Email"
                 variant="outlined"
                 onChange={(e) => setUsername(e.target.value)}
                 error={errors.username !== undefined}
