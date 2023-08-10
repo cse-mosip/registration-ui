@@ -42,6 +42,7 @@ export default function LogIn() {
         console.log("Login successfull", data);
         sessionStorage.setItem("token", data.data);
         navigate(`/${APP}`);
+        return;
       }).catch((err)=>{
         console.log("Login failed", err);
         newErrors.username = 'Incorrect email or password';

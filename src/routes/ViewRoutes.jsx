@@ -22,6 +22,14 @@ import EditStudent from '../pages/EditStudent';
 import EditComplete from '../pages/EditComplete';
 
 const ViewRoutes = () => {
+  const token = sessionStorage.getItem('token');
+
+  if (token == null) {
+    return (
+      <LogIn/>
+    );
+  }
+
   return (
     <Routes>
       <Route exact path={LOGIN} element={<LogIn />} />
