@@ -8,9 +8,14 @@ import { APP, EDIT } from "../constants/constants";
 function View() {
   const [students, setStudents] = useState([]);
   const navigate = useNavigate();
+  const headers = {
+    "Authorization": "Bearer " + sessionStorage.getItem("token") || "",
+  };
   useEffect(() => {
     const getStudents = async () => {
-      await Axios.get(import.meta.env.VITE_APP_API_URL + "/student")
+      await Axios.get(import.meta.env.VITE_APP_API_URL + "/api/student", {
+        headers: headers,
+      })
         .then((res) => {
           setStudents(res.data);
         })
@@ -39,7 +44,9 @@ function View() {
       headerName: "Edit",
       width: 100,
       renderCell: ({ row }) => (
-        <Button variant="contained" onClick={() => editData(row)}>Edit</Button>
+        <Button variant="contained" onClick={() => editData(row)}>
+          Edit
+        </Button>
       ),
     },
   ];
@@ -62,7 +69,7 @@ function View() {
       >
         Registered Students
       </Typography>
-        
+
       <div
         style={{
           height: 400,
