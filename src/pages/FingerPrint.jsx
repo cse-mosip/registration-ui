@@ -23,13 +23,14 @@ export default function FingerPrint() {
         bodyFormData.append(key, studentData[key]);
     }
 
-    const endPoint = import.meta.env.VITE_APP_API_URL + "/student/";
+    const endPoint = import.meta.env.VITE_APP_API_URL + "/api/student/";
 
     try {
         await axios
             .post(endPoint, studentData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
+                    "Authorization" : "Bearer " + sessionStorage.getItem("token") || "",
                 },
             })
             .then((res) => {
