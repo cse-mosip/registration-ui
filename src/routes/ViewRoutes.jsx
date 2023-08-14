@@ -4,6 +4,7 @@ import {
   ASKINFO, VIEW,
   APP,
   LOGIN,
+  PASSWORD,
   FINGERPRINTLOAD,
   FACESCAN,
   REG_COMPLETE,
@@ -20,8 +21,17 @@ import FaceScan from '../pages/FaceScan';
 import RegistrationComplete from '../pages/RegistrationComplete';
 import EditStudent from '../pages/EditStudent';
 import EditComplete from '../pages/EditComplete';
+import PasswordAsker from '../pages/PasswordInput';
 
 const ViewRoutes = () => {
+  const token = sessionStorage.getItem('token');
+
+  if (token == null) {
+    return (
+      <LogIn/>
+    );
+  }
+
   return (
     <Routes>
       <Route exact path={LOGIN} element={<LogIn />} />
@@ -30,6 +40,7 @@ const ViewRoutes = () => {
         <Route exact path={HOME} element={<Home />} />
         <Route exact path={VIEW} element={<View />} />
         <Route exact path={ASKINFO} element={<InfoAsker />} />
+        <Route exact path={PASSWORD} element={<PasswordAsker />} />
         <Route exact path={FINGERPRINTLOAD} element={<FingerPrint />} />
         <Route exact path={FACESCAN} element={<FaceScan />} />
         <Route exact path={REG_COMPLETE} element={<RegistrationComplete />} />

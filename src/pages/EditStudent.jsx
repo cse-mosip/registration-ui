@@ -15,8 +15,6 @@ import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Axios from "axios";
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const departments = {
   "Engineering Faculty": [
     { name: "Department of Computer Science and Engineering", code: "CSE" },
@@ -134,8 +132,13 @@ export default function EditStudent() {
     console.log("Student Data: ", student);
     try {
       const result = await Axios.put(
-        import.meta.env.VITE_APP_API_URL + `/student/${student.id}`,
-        student
+        import.meta.env.VITE_APP_API_URL + `/api/student/${student.id}`,
+        student,
+        {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token") || "",
+          },
+        }
       );
       console.log("Registration Result: ", result.data);
       navigate(`/${APP}/${EDIT_COMPLETE}`);

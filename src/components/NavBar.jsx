@@ -11,20 +11,25 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Link } from 'react-router-dom';
 import { LOGIN } from '../constants/constants';
+import {useNavigate} from "react-router";
 
 const pages = [];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-
+  const navigate = useNavigate();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('token');
+    navigate(`/${LOGIN}`);
   };
 
   return (
@@ -83,7 +88,7 @@ function NavBar() {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="logot">
-              <Button component={Link} to={`/${LOGIN}`} variant="contained">
+              <Button onClick={handleLogout} variant="contained">
                 Logout
               </Button>
             </Tooltip>
