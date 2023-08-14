@@ -1,5 +1,6 @@
 export const LANDING = '/';
 export const ASKINFO = 'askInfo';
+export const PASSWORD = 'password';
 export const HOME = 'home';
 export const VIEW = 'view';
 export const APP = 'app';
