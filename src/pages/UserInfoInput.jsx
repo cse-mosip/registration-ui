@@ -9,7 +9,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useState } from "react";
 import { FormHelperText } from "@mui/material";
-import { APP, FACESCAN } from "../constants/constants";
+import { APP, PASSWORD } from "../constants/constants";
 import { useNavigate } from "react-router-dom";
 
 const roles=[
@@ -190,7 +190,9 @@ export default function InfoAsker() {
             return;
         }
 
-        navigate(`/${APP}/${FACESCAN}`, { state: { role: role, user: user } });
+        
+
+        navigate(`/${APP}/${PASSWORD}`, { state: { role: role, user: user } });
     };
 
     const handleChange = (event) => {
