@@ -1,17 +1,25 @@
-FROM node:16-alpine as builder
+FROM node:18-alpine as builder
 WORKDIR /app
+COPY package.json .
+COPY package-lock.json .
+RUN npm ci
 COPY . .
-RUN npm install
 RUN npm run build
 
 FROM nginxinc/nginx-unprivileged:stable-alpine-slim
 
+# Update nginx user/group in alpine
 ENV ENABLE_PERMISSIONS=TRUE
 ENV DEBUG_PERMISSIONS=TRUE
 ENV USER_NGINX=10015
 ENV GROUP_NGINX=10015
+ENV VITE_APP_API_URL=http://20.84.34.69/registration-service
+ENV VITE_APP_SOCKET_HOST=http://localhost:7291
+ENV VITE_GAMUNU_API_URL=https://biometric-sdk-svc-docker.onrender.com
+ENV VITE_ENVIRONEMT="prod"
+ENV VITE_CDN_URL="https://testmosipcdn.azureedge.net/registration-ui-assets"
 
-COPY --from=builder /app/dist /usr/share/nginx/html/frontend
+COPY --from=builder /app/build /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 USER 10015
 EXPOSE 8080
