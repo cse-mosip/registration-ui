@@ -20,7 +20,8 @@ export default function FaceScan() {
             photo: imgSrc,
         };
         //TODO: handle fingerprint raw data
-        navigate(`/${APP}/${FINGERPRINTLOAD}`, { state: { student: newData } });
+        // navigate(`/${APP}/${FINGERPRINTLOAD}`, { state: {role:role,user: user,next:"leftfourfingers"} });
+        navigate(`/${APP}/${FINGERPRINTLOAD}`, { state: { student: newData, next:"leftfourfingers" } });
         return;
     };
 
