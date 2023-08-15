@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Docker Login
+        run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+
+      - name: Build Docker Image
+        run: docker build -t registration-ui .
+
+      - name: Docker Push Latest
+        if: github.event_name == 'push'
+        run: |
+          docker tag registration-ui ${{secrets.DOCKER_USER}}/registration-ui:latest
+          docker push ${{secrets.DOCKER_USER}}/registration-ui:latest
