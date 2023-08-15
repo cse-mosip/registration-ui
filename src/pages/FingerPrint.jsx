@@ -311,7 +311,7 @@ export default function FingerPrint() {
 					variant="contained"
 					sx={{ mt: 3, mb: 2 }}
 				>
-					{edit ? "Save" : page == THUMBS ? "Scan Face" : "Request"}
+					{edit ? "Save" : "Request"}
 				</Button>
 			</Container>
 		</>
