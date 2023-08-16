@@ -49,14 +49,15 @@ export default function FingerPrint() {
 					console.log("studentData=", studentData);
 					const dataToSend = {
 						index: studentData.user.index,
-						data: finalData
+						data: processData(finalData)
 					};
 					console.log(dataToSend);
-					const result = await axios.post(
+					axios.post(
 						import.meta.env.VITE_GAMUNU_API_URL + "/upload",
 						dataToSend
-					).then(()=>{
+					).then((data)=>{
 						handleSubmit();
+						console.log(data);
 					}).catch((err)=>{
 						console.error(err);
 						const proceed = confirm("Failed to register finger print data. Need to continue?");
@@ -66,7 +67,6 @@ export default function FingerPrint() {
 							window.location.reload();
 						}
 					});
-					console.log(result);
 				}
 
 			} catch (error) {
@@ -74,6 +74,21 @@ export default function FingerPrint() {
 			}
 		});
 	}, [page]);
+
+	const processData = (fingerPrintArray) => {
+		let data = []
+		fingerPrintArray.forEach(entry => {
+			console.log(entry);
+			data.push({
+				bioSubType: entry.bioSubType,
+				buffer: {
+					type: "Buffer",
+					data: [... new Uint8Array(entry['buffer'])]
+				}
+			});
+		});
+		return data;
+	}
 
 	const handleSubmit = async () => {
 		const bodyFormData = new FormData();
