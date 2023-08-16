@@ -96,12 +96,14 @@ export default function FingerPrint() {
 					console.log("combinedFingers=", combinedFingers);
 
 					//send these leftfourfingers,rightfourfingers and thumbs to gamunu's API
+					const fingerprintData = {
+						index: studentData.index,
+						data: combinedFingers
+					};
+					console.log(fingerprintData);
 					const result = await axios.post(
 						import.meta.env.VITE_GAMUNU_API_URL + "/upload",
-						{
-							index: studentData.index,
-							data: combinedFingers
-						}
+						fingerprintData
 					).then(()=>{
 						handleSubmit();
 					}).catch((err)=>{
