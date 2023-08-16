@@ -24,86 +24,37 @@ export default function FingerPrint() {
 	const location = useLocation();
 	const studentData = location.state.student;
 	const edit = location.state.edit;
-	1;
-
-	// const studentData = location?.state?.student;
-	// const edit = location?.state?.edit;
-	// const next = location?.state?.next;
-	// console.log(next)
+	const [fingerData, setfingerData] = useState([]);
 	const [page, setPage] = useState(LEFTFOURFINGERS);
-
-	// const handleNext = () => {
-	//   //TODO: handle fingerprint raw data
-	//   navigate(`/${APP}/${FACESCAN}`, { state: studentData });1
 
 	useEffect(() => {
 		socket.removeAllListeners("fingerprintData");
-		// if (resource === null) return;
 		socket.on("fingerprintData", async (fingerprintData) => {
 			try {
-				// const authenticationData =
-				// await FingerprintAuthServices.fpAuthenticate(
-				//   parseInt(resource.id),
-
-				// const result = await Axios.post(
-				//   import.meta.env.VITE_DEVICE_API_URL + "reg/rcapture"
-				// );
-				// if(result){
-				// console.log("LeftFourFingers: ", result.data);
-				// localStorage.setItem(LEFTFOURFINGERS,result.data)
-				// navigate(`/${APP}/${FINGERPRINTLOAD}`,{ state: {next: RIGHTFOURFINGERS} });
-				// }
-
 				if (page == LEFTFOURFINGERS) {
 					console.log("left fourfingers recieved");
-					localStorage.setItem(
-						LEFTFOURFINGERS,
-						JSON.stringify(fingerprintData)
-					);
-					// navigate(`/${APP}/${FINGERPRINTLOAD}`, {
-					// 	state: { next: RIGHTFOURFINGERS },
-					// });
+					setfingerData(fingerprintData);
+					console.log("currentData = ", fingerData);
 					setPage(RIGHTFOURFINGERS);
 				} else if (page == RIGHTFOURFINGERS) {
 					console.log("right fourfingers recieved");
-					localStorage.setItem(
-						RIGHTFOURFINGERS,
-						JSON.stringify(fingerprintData)
-					);
+					setfingerData([...fingerData, ...fingerprintData]);
 					setPage(THUMBS);
-					// navigate(`/${APP}/${FINGERPRINTLOAD}`, { state: { next: THUMBS } });
 				} else {
 					console.log("thumbs recieved");
-					const leftfourfingers = JSON.parse(
-						localStorage.getItem(LEFTFOURFINGERS)
-					);
-					const rightfourfingers = JSON.parse(
-						localStorage.getItem(RIGHTFOURFINGERS)
-					);
-					console.log(
-						"leftfourfing=",
-						leftfourfingers,
-						"right",
-						rightfourfingers,
-						"thumbs",
-						fingerprintData
-					);
-					const combinedFingers = [
-						...leftfourfingers,
-						...rightfourfingers,
-						...fingerprintData,
-					];
-					console.log("combinedFingers=", combinedFingers);
+					const finalData = [...fingerData, ...fingerprintData];
+					console.log("combinedFingers=", finalData);
 
 					//send these leftfourfingers,rightfourfingers and thumbs to gamunu's API
-					const fingerprintData = {
-						index: studentData.index,
-						data: combinedFingers
+					console.log("studentData=", studentData);
+					const dataToSend = {
+						index: studentData.user.index,
+						data: finalData
 					};
-					console.log(fingerprintData);
+					console.log(dataToSend);
 					const result = await axios.post(
 						import.meta.env.VITE_GAMUNU_API_URL + "/upload",
-						fingerprintData
+						dataToSend
 					).then(()=>{
 						handleSubmit();
 					}).catch((err)=>{
@@ -115,11 +66,7 @@ export default function FingerPrint() {
 							window.location.reload();
 						}
 					});
-
 					console.log(result);
-					// if (true) {
-					//   navigate(`/${APP}/${FACESCAN}`, { state: studentData });
-					// }
 				}
 
 			} catch (error) {
@@ -129,8 +76,6 @@ export default function FingerPrint() {
 	}, [page]);
 
 	const handleSubmit = async () => {
-		//TODO: handle faceprint raw data
-
 		const bodyFormData = new FormData();
 		for (var key in studentData) {
 			bodyFormData.append(key, studentData[key]);
@@ -166,7 +111,7 @@ export default function FingerPrint() {
 		return;
 	};
 
-	const handleRequest = async (event) => {
+	const handleRequest = async () => {
 		try {
 			if (page == LEFTFOURFINGERS) {
 				socket.emit("fingerprint", 1);
@@ -217,19 +162,6 @@ export default function FingerPrint() {
 					height="60vh"
 				></Image>
 				<br />
-				{/* <ProgressBar progress={progress} setProgress={setProgress} /> */}
-				{/* {progress === 100 && (
-          <Button
-            type="button"
-            onClick={edit ? handleSave : handleSubmit}
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            {edit ? "Save" : "Register User"}
-          </Button>
-        )} */}
-
 				<Button
 					type="button"
 					onClick={edit ? handleSave : handleRequest}
