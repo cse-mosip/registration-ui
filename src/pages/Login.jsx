@@ -8,7 +8,6 @@ import {
   ThemeProvider,
   createTheme,
 } from '@mui/material';
-import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { APP } from '../constants/constants';
 import Image from 'mui-image';
@@ -42,6 +41,7 @@ export default function LogIn() {
         console.log("Login successfull", data);
         sessionStorage.setItem("token", data.data);
         navigate(`/${APP}`);
+        window.location.reload();
         return;
       }).catch((err)=>{
         console.log("Login failed", err);

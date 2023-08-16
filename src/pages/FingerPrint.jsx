@@ -99,9 +99,20 @@ export default function FingerPrint() {
 					const result = await axios.post(
 						import.meta.env.VITE_GAMUNU_API_URL + "/upload",
 						{
-							data: combinedFingers,
+							index: studentData.index,
+							data: combinedFingers
 						}
-					);
+					).then(()=>{
+						handleSubmit();
+					}).catch((err)=>{
+						console.error(err);
+						const proceed = confirm("Failed to register finger print data. Need to continue?");
+						if (proceed){
+							handleSubmit();
+						} else {
+							window.location.reload();
+						}
+					});
 
 					console.log(result);
 					// if (true) {
@@ -109,29 +120,8 @@ export default function FingerPrint() {
 					// }
 				}
 
-				//   user.token
-				// );
-
-				// const {username, startTime, endTime, count} = authenticationData.data;
-
-				// dayjs.extend(localizedFormat);
-				// const booking = {
-				//   username,
-				//   count,
-				//   timeslot: dayjs(startTime).format('L LT') + '-' + dayjs(endTime).format('LT')
-				// }
-				// setBooking(booking);
-
-				// setAccess(true);
-				// setScannerActive(false);
-				// setDialogOpen(true);
 			} catch (error) {
-				// setAccess(false);
-				// if(error.message==='400'){
-				//   setDialogOpen(true);
-				// }else{
-				//   setDialogOpen(false);
-				// }
+				console.log(error);
 			}
 		});
 	}, [page]);
@@ -179,78 +169,12 @@ export default function FingerPrint() {
 			if (page == LEFTFOURFINGERS) {
 				socket.emit("fingerprint", 1);
 				console.log("left fourfingers requested");
-				// // const result = await Axios.post(
-				// //   import.meta.env.VITE_DEVICE_API_URL + "reg/rcapture"
-				// // );
-				// // if(result){
-				// // console.log("LeftFourFingers: ", result.data);
-				// // localStorage.setItem(LEFTFOURFINGERS,result.data)
-				// // navigate(`/${APP}/${FINGERPRINTLOAD}`,{ state: {next: RIGHTFOURFINGERS} });
-				// // }
-				// if (true) {
-				//   console.log("LeftFourFingers: ", "leftbytes");
-				//   localStorage.setItem(LEFTFOURFINGERS, "leftbytes")
-				//   navigate(`/${APP}/${FINGERPRINTLOAD}`, { state: { next: RIGHTFOURFINGERS } });
-				// }
 			} else if (page == RIGHTFOURFINGERS) {
 				socket.emit("fingerprint", 2);
 				console.log("right fourfingers requested");
-				// const result = await Axios.post(
-				//   import.meta.env.VITE_DEVICE_API_URL + "reg/rcapture"
-				// );
-				// if(result){
-				// console.log("RightFourFingers: ", result.data);
-				// localStorage.setItem(RIGHTFOURFINGERS,result.data)
-				// navigate(`/${APP}/${FINGERPRINTLOAD}`,{ state: {next: THUMBS} });
-				// }
-				// if (true) {
-				//   console.log("RightFourFingers: ", "rightbytes");
-				//   localStorage.setItem(RIGHTFOURFINGERS, "rightbytes")
-				//   navigate(`/${APP}/${FINGERPRINTLOAD}`, { state: { next: THUMBS } });
-				// }
 			} else {
 				socket.emit("fingerprint", 3);
 				console.log("thumbs requested");
-				// const thumbs = await Axios.post(
-				//   import.meta.env.VITE_DEVICE_API_URL + "reg/rcapture"
-				// );
-				// if (thumbs) {
-				//   console.log("Thumbs: ", thumbs.data);
-
-				//   const leftfourfingers = localStorage.getItem(LEFTFOURFINGERS)
-				//   const rightfourfingers = localStorage.getItem(RIGHTFOURFINGERS)
-				//   //send these leftfourfingers,rightfourfingers and thumbs to gamunu's API
-				//   const resultGamunu = await Axios.post(
-				//     import.meta.env.VITE_GAMUNU_API_URL + "reg/rcapture",
-				//     {
-				//       leftfourfingers,
-				//       rightfourfingers,
-				//       thumbs: thumbs.data
-				//     }
-				//   );
-				//   if (resultGamunu) {
-				//     navigate(`/${APP}/${FACESCAN}`, { state: studentData });
-				//   }
-				// }
-				// if (true) {
-				//   // console.log("Thumbs: ", thumbs.data);
-
-				//   const leftfourfingers = localStorage.getItem(LEFTFOURFINGERS)
-				//   const rightfourfingers = localStorage.getItem(RIGHTFOURFINGERS)
-				//   console.log(leftfourfingers,rightfourfingers)
-				//   //send these leftfourfingers,rightfourfingers and thumbs to gamunu's API
-				//   // const resultGamunu = await Axios.post(
-				//   //   import.meta.env.VITE_GAMUNU_API_URL + "reg/rcapture",
-				//   //   {
-				//   //     leftfourfingers,
-				//   //     rightfourfingers,
-				//   //     thumbs: thumbs.data
-				//   //   }
-				//   // );
-				//   // if (true) {
-				//   //   navigate(`/${APP}/${FACESCAN}`, { state: studentData });
-				//   // }
-				// }
 			}
 		} catch (error) {
 			console.log("Error sending request to the device", error);
